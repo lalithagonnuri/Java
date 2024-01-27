@@ -1,0 +1,42 @@
+import java.util.*;
+
+class Minplat {
+    public static void main(String[] args) {
+        
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter number of trains");
+        int n = s.nextInt();
+        float A[] = new float[n];
+        float B[] = new float[n];
+        System.out.println("Enter Arrival timings");
+        for (int i = 0; i < n; i++) {
+            A[i] = s.nextFloat();
+        }
+        System.out.println("Enter Departure timings");
+        for (int i = 0; i < n; i++) {
+            B[i] = s.nextFloat();
+        }
+        int c = minplat(A, B, n);
+        System.out.println(c);
+    }
+
+    static int minplat(float A[], float B[], int n) {
+        int i = 1, j = 0;
+        Arrays.sort(A);
+        Arrays.sort(B);
+        int plat = 1, result = 1;
+        while (i < n && j < n) {
+            if (A[i] <= B[j]) {
+                plat++;
+                i++;
+            } else if (A[i] >= B[j]) {
+                plat--;
+                j++;
+            }
+            if (plat > result) {
+                result = plat;
+            }
+        }
+        return result;
+    }
+}
