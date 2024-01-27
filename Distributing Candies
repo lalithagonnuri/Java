@@ -1,0 +1,39 @@
+import java.util.*;
+
+class candies {
+    public static void main(String[] args) {
+        
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter number of children");
+        int n = s.nextInt();
+        int A[] = new int[n];
+       
+      
+        System.out.println("Enter sequence");
+        for (int i = 0; i < n; i++) {
+            A[i] = s.nextInt();
+        }
+        
+        pt(A, result, n);
+        
+        System.out.println("Candies count for each student: " + Arrays.toString(Arrays.copyOfRange(result, 1, result.length)));
+        System.out.println("Total number of candies required: " + result[0]);
+    }
+
+    static void pt(int A[], int result[], int n) {
+        Arrays.fill(result, 1);
+        for (int i = 1; i < n; i++) {
+            if (A[i] > A[i - 1]) {
+                result[i] = result[i - 1] + 1;
+            }
+        }
+        for (int i = n - 2; i >= 0; i--) {
+            if (A[i] > A[i + 1] && result[i] <= result[i + 1]) {
+                result[i] = result[i + 1] + 1;
+            }
+        }
+        
+        int totalCandies = Arrays.stream(result).sum();
+        result[0] = totalCandies;
+    }
+}
