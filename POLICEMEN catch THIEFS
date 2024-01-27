@@ -1,0 +1,47 @@
+import java.util.*;
+
+class GFG {
+    static int pT(char arr[], int n, int k) {
+        int result = 0;
+        ArrayList<Integer> thi = new ArrayList<>();
+        ArrayList<Integer> pol = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == 'P')
+                pol.add(i);
+            else if (arr[i] == 'T')
+                thi.add(i);
+        }
+
+        int l = 0, r = 0;
+        while (l < thi.size() && r < pol.size()) {
+            if (Math.abs(thi.get(l) - pol.get(r)) <= k) {
+                result++;
+                l++;
+                r++;
+            } else if (thi.get(l) < pol.get(r))
+                l++;
+            else
+                r++;
+        }
+        return result;
+    }
+
+    public static void main(String args[]) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the number of policemen and thieves (n): ");
+        int n = scanner.nextInt();
+        scanner.nextLine(); 
+
+        System.out.println("Enter the array where 'P' and 'T' are represented: ");
+        char arr[] = scanner.nextLine().toCharArray();
+
+        System.out.println("Enter the value of k: ");
+        int k = scanner.nextInt();
+
+        System.out.println(pT(arr, n, k));
+
+        scanner.close();
+    }
+}
