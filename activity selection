@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+
+class Activity {
+    int start, finish;
+
+    public Activity(int start, int finish) {
+        this.start = start;
+        this.finish = finish;
+    }
+}
+
+class Compare {
+    static void compare(Activity arr[], int n) {
+        Arrays.sort(arr, new Comparator<Activity>() {
+            @Override
+            public int compare(Activity s1, Activity s2) {
+                return s1.finish - s2.finish;
+            }
+        });
+    }
+}
+
+class Main {
+    static void activitySel(Activity arr[], int n) {
+        Compare obj = new Compare();
+        obj.compare(arr, n);
+        System.out.print("Selected activities are: ");
+        int i = 0;
+        System.out.print("(" + arr[i].start + ", " + arr[i].finish + ")");
+
+        for (int j = 1; j < n; j++) {
+            if (arr[j].start >= arr[i].finish) {
+                System.out.print(", (" + arr[j].start + ", " + arr[j].finish + ")");
+                i = j;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int n;
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter the number of activities: ");
+        n = s.nextInt();
+        Activity arr[] = new Activity[n];
+System.out.print("Enter the start and finish of activities ");
+        
+        for (int i = 0; i < n; i++) {
+            int start = s.nextInt();
+            int finish = s.nextInt();
+            arr[i] = new Activity(start, finish);
+        }
+
+        activitySel(arr, n);
+    }
+}
