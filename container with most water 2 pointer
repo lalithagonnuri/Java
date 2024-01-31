@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class ContainerWithMostWater {
+
+    public static int maxAreaTwoPointer(int[] height) {
+        int maxArea = 0;
+        int left = 0;
+        int right = height.length - 1;
+
+        while (left < right) {
+            int minHeight = Math.min(height[left], height[right]);
+            int currentArea = minHeight * (right - left);
+            maxArea = Math.max(maxArea, currentArea);
+
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return maxArea;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of heights: ");
+        int n = scanner.nextInt();
+
+        int[] height = new int[n];
+        System.out.print("Enter the heights: ");
+        for (int i = 0; i < n; i++) {
+            height[i] = scanner.nextInt();
+        }
+
+        int result = maxAreaTwoPointer(height);
+        System.out.println("Maximum Area  " + result);
+    }
+}
