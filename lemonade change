@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        int n;
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter size: ");
+        n = s.nextInt();
+
+        int[] m = new int[n];
+        System.out.print("Enter the change: ");
+        for (int i = 0; i < n; i++) {
+            m[i] = s.nextInt();
+        }
+
+        boolean result = lemonadeChange(m);
+        if (result) {
+            System.out.println("The lemonade corner can provide change to each customer.");
+        } else {
+            System.out.println("The lemonade corner  cannot provide change to each customer.");
+        }
+    }
+
+    public static boolean lemonadeChange(int[] m) {
+        int five = 0, ten = 0;
+
+        for (int change : m) {
+            if (change == 5) {
+                five++;
+            } else if (change == 10) {
+                if (five == 0) {
+                    return false;
+                }
+                five--;
+                ten++;
+            } else { 
+                if (ten > 0 && five > 0) {
+                    ten--;
+                    five--;
+                } else if (five >= 3) {
+                    five -= 3;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}
