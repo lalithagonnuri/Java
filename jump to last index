@@ -1,0 +1,40 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        int n;
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter size: ");
+        n = s.nextInt();
+
+        int[] arr = new int[n];
+        System.out.print("Enter values: ");
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = s.nextInt();
+        }
+
+        boolean result = jump(arr, n);
+
+        if (result) {
+            System.out.println("Yes, you can reach the last index.");
+        } else {
+            System.out.println("No, you cannot reach the last index.");
+        }
+    }
+
+    static boolean jump(int arr[], int n) {
+        int maxReach = 0;
+
+        for (int i = 0; i <= maxReach; i++) {
+            maxReach = Math.max(maxReach, i + arr[i]);
+
+            if (maxReach >= n - 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
